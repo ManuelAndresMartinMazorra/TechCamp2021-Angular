@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavBarComponent } from './top-bar/components/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [
     AppComponent,
-    NavBarComponent
+    NavBarComponent,
+    NotfoundComponent
   ],
   bootstrap: [AppComponent]
 })

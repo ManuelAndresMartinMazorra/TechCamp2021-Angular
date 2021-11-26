@@ -11,36 +11,48 @@
     <button class="button inline" type="submit">Buscar</button>
 </form>
 
-<table mdbTable>
-    <col style="width:60%">
-    <col style="width:30%">
-	<col style="width:10%">
-    <col style="width:10%">
-    <thead class="black white-text">
-        <tr>
-            <th> Título </th>
-            <th> Precio </th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr mdbTableCol *ngFor="let game of games">
-            <td>
-                <a [title]="game.external" style="color: white;"
-                    [routerLink]="['/games', game.gameID]" [queryParams]="{text: titleSearch}">
-                    {{ game.external }}
-                </a>
-            </td>
-            <td style="text-align: center;"></td>
-            <td style="text-align: center;">
-                <game-alerts
-                    [game]="game">
-                </game-alerts>
-            </td>
-            <td style="text-align: center;">
-                <button (click)="addToCart(game)">+</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+
+<ng-template [ngIf]="games.length > 0" [ngIfElse]="noItems">
+    <table mdbTable>
+        <col style="width:60%">
+        <col style="width:30%">
+        <col style="width:10%">
+        <col style="width:10%">
+        <thead class="black white-text">
+            <tr>
+                <th> Título </th>
+                <th> Precio </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr mdbTableCol *ngFor="let game of games">
+                <td>
+                    <a [title]="game.external" style="color: white;"
+                        [routerLink]="['/games', game.gameID]" 
+                        [queryParams]="{text: titleSearch}">
+                        {{ game.external }}
+                    </a>
+                </td>
+                <td style="text-align: center;">
+                    {{ (game.cheapest) | currency: 'EUR'}}
+                </td>
+                <td style="text-align: center;">
+                    <game-alerts
+                        [game]="game">
+                    </game-alerts>
+                </td>
+                <td style="text-align: center;">
+                    <button (click)="addToCart(game)">+</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #noItems>
+    <div>
+        <h4> busca su producto. </h4>
+    </div>
+</ng-template>

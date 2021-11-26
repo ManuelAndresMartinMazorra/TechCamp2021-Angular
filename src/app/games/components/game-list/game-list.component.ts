@@ -15,9 +15,11 @@ export class GameListComponent implements OnInit{
   
   games: Game[] = [];
   titleSearch: string = '';
+  added: string = '';
 
   constructor(private route: ActivatedRoute,
     private gameService: GameService,
+    private cartService: CartService,
     private formBuilder: FormBuilder) { }
   
   checkoutForm = this.formBuilder.group({
@@ -27,10 +29,20 @@ export class GameListComponent implements OnInit{
   ngOnInit(): void {
     this.checkoutForm.value.title = '';
 
+    if (this.route.snapshot.queryParams['text']) {
+      this.route.queryParams.subscribe(params => 
+      {
+        console.log(params);
+        this.checkoutForm.value.title = params['text'];
+      });
+    }
+
     if(this.checkoutForm.value.title !== '')
     {
       this.searchGames();
     }
+
+    
   }
 
   searchGames() {
@@ -46,6 +58,8 @@ export class GameListComponent implements OnInit{
   }
 
   addToCart(game: Game) {
+    this.cartService.addToCart({ title: game.external, price: game.cheapest});
+    this.added = "In Cart";
     window.alert(`El producto ${game.external} ha sido añadido a la cesta!`);
   }
 }

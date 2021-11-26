@@ -22,6 +22,7 @@ export class GameDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private gameService: GameService,
+    private cartService: CartService,
     private storeService: StoreService) { 
 
       this.storeService.getStores().subscribe((data: any) => {
@@ -53,6 +54,7 @@ export class GameDetailsComponent implements OnInit {
   }
 
   addToCart(game: Game) {
+    this.cartService.addToCart({ title: game.external, price: game.cheapest});
     window.alert(`El producto ${game.external} ha sido añadido a la cesta!`);
   }
 }

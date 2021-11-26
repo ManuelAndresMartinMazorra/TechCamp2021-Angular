@@ -1,8 +1,9 @@
 <div *ngIf="game">
 
     <div style="margin-top: 1em;">
-        <button [routerLink]="['/games']" [queryParams]="{text: textSearch}" 
-            class="inline" style="margin-right: .5em;" type="submit">Volver</button>
+        <button [routerLink]="['/games']" queryParamsHandling="preserve" 
+            class="inline" style="margin-right: .5em;" type="submit">Volver
+        </button>
         <button class="inline" (click)="addToCart(game)">Añadir al carrito</button>
     </div>
     

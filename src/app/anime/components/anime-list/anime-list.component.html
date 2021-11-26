@@ -11,34 +11,42 @@
     <button class="button inline" type="submit">Buscar</button>
 </form>
 
-<table mdbTable>
-    <col style="width:60%">
-    <col style="width:30%">
-	<col style="width:10%">
-    <col style="width:10%">
-    <thead class="black white-text">
-        <tr>
-            <th> Título </th>
-            <th> Punt. </th>
-            <th> Precio </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr mdbTableCol *ngFor="let anime of animeList">
-            <td>
-                <a [title]="anime.title"
-                    style="color: white;"
-                    [routerLink]="['/anime', anime.mal_id]"
-                    [queryParams]="{text: titleSearch}">
-                    {{ anime.title }}
-                </a>
-            </td>
-            <td style="text-align: center;">{{ anime.score }}</td>
-            <td style="text-align: center;">{{ (anime.episodes * 1.5) | currency: 'EUR'}}</td>
-            <td style="text-align: center;">
-                <button (click)="addToCart(anime)">+</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<ng-template [ngIf]="animeList.length > 0" [ngIfElse]="noItems">
+    <table mdbTable>
+        <col style="width:60%">
+        <col style="width:30%">
+        <col style="width:10%">
+        <col style="width:10%">
+        <thead class="black white-text">
+            <tr>
+                <th> Título </th>
+                <th> Punt. </th>
+                <th> Precio </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr mdbTableCol *ngFor="let anime of animeList">
+                <td>
+                    <a [title]="anime.title"
+                        style="color: white;"
+                        [routerLink]="['/anime', anime.mal_id]"
+                        [queryParams]="{text: titleSearch}">
+                        {{ anime.title }}
+                    </a>
+                </td>
+                <td style="text-align: center;">{{ anime.score }}</td>
+                <td style="text-align: center;">{{ (anime.episodes * 1.5) | currency: 'EUR'}}</td>
+                <td style="text-align: center;">
+                    <button (click)="addToCart(anime)">+</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #noItems>
+    <div>
+        <h4> busca su producto. </h4>
+    </div>
+</ng-template>

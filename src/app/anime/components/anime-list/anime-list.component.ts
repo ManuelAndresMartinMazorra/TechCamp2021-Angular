@@ -25,8 +25,16 @@ export class AnimeListComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.checkoutForm.value.title = this.route.snapshot.queryParamMap.get('text') || '';
+    this.checkoutForm.value.title = '';
 
+    if (this.route.snapshot.queryParams['text']) {
+      this.route.queryParams.subscribe(params => 
+      {
+        console.log(params);
+        this.checkoutForm.value.title = params['text'];
+      });
+    }
+    
     if(this.checkoutForm.value.title !== '')
     {
       this.searchAnimeList();
@@ -34,7 +42,11 @@ export class AnimeListComponent implements OnInit {
   }
 
   searchAnimeList() {
-    
+    this.titleSearch = this.checkoutForm.value.title;
+    this.animeService.getAnimeList(this.titleSearch).subscribe((data: Anime[]) => {
+      console.log(data);
+      this.animeList = data;
+    });   
   }
 
   addToCart(anime: Anime) {
