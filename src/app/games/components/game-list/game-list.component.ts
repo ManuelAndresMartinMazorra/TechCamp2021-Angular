@@ -54,7 +54,7 @@ export class GameListComponent implements OnInit{
   }
 
   onNotify() {
-    window.alert('Serás notificado cuando el juego se encuentre disponible');
+    window.alert('Recibiras un e-mail cuando haya un juego en stock.');
   }
 
   addToCart(game: Game) {
